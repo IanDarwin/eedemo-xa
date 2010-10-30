@@ -1,4 +1,4 @@
-package session;
+package admin;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 import domain.Customer;
 
-public class NativeReports {
+public class AdminReports {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 

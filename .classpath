@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbsrc"/>
+	<classpathentry kind="src" path="websrc"/>
+	<classpathentry kind="src" path="etc"/>
+	<classpathentry kind="src" path="adminsrc"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-entitymanager.jar"/>
+	<classpathentry kind="lib" path="lib/cglib-2.1_3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-archive-browsing.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/javassist.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.0-dev2.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/javaee.jar"/>
+	<classpathentry kind="lib" path="lib/checkstyle-all.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-validator.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.antlr_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.asm_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.core_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.jpa_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.moxy_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.oracle_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.persistence.sdo_1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

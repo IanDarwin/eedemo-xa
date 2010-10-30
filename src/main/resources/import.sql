@@ -1,3 +1,3 @@
-insert into customer(id, name) values(1, 'Alpha');
+insert into customer(id, name, numberoforders, version) values(1, 'Alpha', 0, 0);
 
 

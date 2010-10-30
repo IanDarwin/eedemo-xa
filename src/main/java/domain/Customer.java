@@ -13,6 +13,7 @@ public class Customer {
 
 	int id;
 	protected String name;
+	int numberOfOrders;
 	int version;
 	
 	public Customer() {
@@ -44,7 +45,7 @@ public class Customer {
 	
 	@Override
 	public String toString() {
-		return getName();
+		return String.format("%s (%d orders)", getName(), getNumberOfOrders());
 	}
 	
 	public String getName() {
@@ -52,6 +53,15 @@ public class Customer {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+
+	public int getNumberOfOrders() {
+		return numberOfOrders;
+	}
+
+	public void setNumberOfOrders(int numberOfOrders) {
+		this.numberOfOrders = numberOfOrders;
 	}
 	
 	@Override
@@ -74,4 +84,5 @@ public class Customer {
 		final Customer other = (Customer) obj;
 		return other.getId() == getId();
 	}
+
 }
