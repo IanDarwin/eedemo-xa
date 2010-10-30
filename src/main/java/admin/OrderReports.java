@@ -26,7 +26,7 @@ public class OrderReports {
 			System.out.printf("Created EntityManager in %f seconds%n", (time3 - time2)/1000d);
 						
 			// Query to list
-			Query query = entityManager.createQuery("from Order");
+			Query query = entityManager.createQuery("select o from Order o");
 			List<Order> res = query.getResultList();
 			
 			System.out.println("Orders found by query");
