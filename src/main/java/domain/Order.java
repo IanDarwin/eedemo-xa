@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="ORDERS")
@@ -16,6 +17,8 @@ public class Order {
 	
 	private Date date;
 	private int quantity;
+
+	private int version;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
@@ -37,6 +40,16 @@ public class Order {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	@Version
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
 	
 	@Override
 	public String toString() {

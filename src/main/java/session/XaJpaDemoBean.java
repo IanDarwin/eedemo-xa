@@ -25,6 +25,7 @@ public class XaJpaDemoBean {
 
 			// Update the customer entity in the database.
 			customerEntityManager.merge(c);
+			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
 			customerTransaction.commit();
 			
 			int cid = c.getId();

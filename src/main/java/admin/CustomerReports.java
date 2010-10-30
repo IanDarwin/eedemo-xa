@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 import domain.Customer;
 
-public class AdminReports {
+public class CustomerReports {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 
@@ -27,18 +27,16 @@ public class AdminReports {
 			long time3 = System.currentTimeMillis();
 			System.out.printf("Created EntityManager in %f seconds%n", (time3 - time2)/1000d);
 			
-			// Create test data
-			final EntityTransaction tx = entityManager.getTransaction();
-			tx.begin();
-			
-			tx.commit();
-			
-			// Use native SQL query to list
+			// Query to list
 			Query query = entityManager.createQuery("from Customer");
 			List<Customer> res = query.getResultList();
 			System.out.println("People found by query");
-			for (Customer c : res) {
-				System.out.println(c);
+			if (res.size() == 0) {
+				System.out.println("** NONE **");
+			} else {
+				for (Customer c : res) {
+					System.out.println(c);
+				}
 			}
 		} finally {	
 			if (entityManager != null)
