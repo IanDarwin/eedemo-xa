@@ -45,38 +45,34 @@
 	  	</copy>
 	  </target>
 	
-	<target name="run" depends="runSimple"/>
+	<target name="run" depends="customersReport,ordersReport"/>
 
-	  <target name="runSimple" depends="compile, copymetafiles">
+	  <target name="customersReport" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
-	  	       classname="demo.JPASimple"
+	  	       classname="admin.CustomerReport"
 	  	       classpathref="project.classpath">
 	     	   <classpath path="${build.dir}"/>
 	     </java>
 	  </target>
 
-	  <target name="runQuery" depends="compile, copymetafiles">
+	  <target name="ordersReport" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
-	  	       classname="demo.JPAQuery"
+	  	       classname="admin.OrdersReport"
 	  	       classpathref="project.classpath">
 	     	   <classpath path="${build.dir}"/>
 	     </java>
 	  </target>
 
-	  <target name="runSP" depends="compile, copymetafiles">
-	     <java fork="true" failonerror="true"
-	  	       classname="features/StoredProcedureDriver"
-	  	       classpathref="project.classpath">
-	     	   <classpath path="${build.dir}"/>
-	     </java>
-	  </target>
+	<target name="deploy" depends="ear">
+	</target>
 	
-	  <target name="runManyToMany" depends="compile, copymetafiles">
-		     <java fork="true" failonerror="true"
-		  	       classname="demo.ManyToManyDemo"
-		  	       classpathref="project.classpath">
-		     	   <classpath path="${build.dir}"/>
-		     </java>
-	  </target>
+	<target name="ear" depends="ejb-jar,war">
+	</target>
+	
+	<target name="ejb-jar" depends="compile">
+	</target>
+	
+	<target name="war" depends="compile">
+	</target>
 						
 </project>
