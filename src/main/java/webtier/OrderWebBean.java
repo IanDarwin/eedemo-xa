@@ -3,17 +3,19 @@ package webtier;
 import java.util.Date;
 
 import javax.ejb.EJB;
+import javax.ejb.TransactionManagement;
+import javax.faces.bean.ManagedBean;
 
 import session.XaJpaDemoBean;
-
 import domain.Customer;
 import domain.Order;
 
 /**
  * JSF Managed Bean for order
  * @author ian
- *
  */
+@ManagedBean
+@TransactionManagement()
 public class OrderWebBean {
 	@EJB XaJpaDemoBean dao;
 	Customer customer;
