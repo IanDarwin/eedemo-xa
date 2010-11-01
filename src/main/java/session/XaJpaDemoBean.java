@@ -1,16 +1,14 @@
 package session;
 
-import java.util.List;
-
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import domain.Customer;
 import domain.Order;
 
-
+@Stateless
 public class XaJpaDemoBean {
 
 	@PersistenceContext(name="customer") EntityManager customerEntityManager;
@@ -27,7 +25,7 @@ public class XaJpaDemoBean {
 			customerTransaction.commit();
 			
 			int cid = c.getId();
-			System.out.println("Updated Customer with Id " + cid);
+			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + cid);
 			
 			EntityTransaction orderTransaction = orderEntityManager.getTransaction();
 			orderTransaction.begin();
@@ -37,19 +35,11 @@ public class XaJpaDemoBean {
 			orderTransaction.commit();
 			
 			int oid = o.getId();
-			System.out.println("Created order with Id " + oid);
-			Query query = customerEntityManager.createQuery("select c from Customer c order by c.name");
-
-			List<Customer> list = query.getResultList();
-			System.out.println("There are " + list.size() + " persons:");
-			for (Customer p : list) {
-				System.out.println(p.getName());
-			}
-			System.out.println();
+			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Created order with Id " + oid);
 			
 		} finally {	
 			if (!succeeds) {
-				throw new RuntimeException("Simulated failure!");
+				throw new RuntimeException("XaJpaDemoBean.saveCustomerOrder(): Simulated failure!");
 			}
 		}
 	}
