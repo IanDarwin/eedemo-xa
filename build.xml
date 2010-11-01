@@ -1,9 +1,18 @@
-<project name="JPA Demos" default="run">
+<project name="JPA Demo with XA" default="run">
 
-	  <property name="src.java.dir" value="src"/>
-	  <property name="lib.dir" value="lib"/>
-	  <property name="build.dir" value="bin"/>
-	  <property name="src.etc.dir" value="etc"/>
+	<property name="src.java.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="build.dir" value="dist"/>
+	<property name="src.etc.dir" value="etc"/>
+	<property name="warfile" value="jpademo-xa.war"/>
+
+	<!--
+	 MUST HAVE at least one line, defining deploy.dir, e.g.
+	 deploy.dir=/var/tomcat/webapps/
+	 If using a web container that isn't smart enough to handle 'drop a war'
+	 deployments, you'll have to re-write the deploy target (end of file).
+	-->
+	<property file="build.properties"/>
 	
 	  <path id="project.classpath">
 	    <fileset dir="${lib.dir}">
@@ -21,8 +30,12 @@
 	    <delete dir="${build.dir}"/>
 	  	<mkdir dir="${build.dir}"/>
 	  </target>
+	  	
+	  	<target name="init">
+	  		<mkdir dir="${build.dir}"/>
+	  	</target>
 	
-	  <target name="compile">
+	  <target name="compile" depends="init">
 		<mkdir dir="${build.dir}"/>
 	    <javac 
 	  	    srcdir="${src.java.dir}"
@@ -44,12 +57,20 @@
 	  	  </fileset>
 	  	</copy>
 	  </target>
+	  	  	  	
+	  <target name="copyweb">
+	  	  <copy todir="${build.dir}">
+	  	  	  <fileset dir="web">
+	  	  	  		<include name="**/*"/>
+	  	  	  </fileset>
+	  	  </copy>
+	  </target>
 	
 	<target name="run" depends="customersReport,ordersReport"/>
 
 	  <target name="customersReport" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
-	  	       classname="admin.CustomerReport"
+	  	       classname="admin.CustomerReports"
 	  	       classpathref="project.classpath">
 	     	   <classpath path="${build.dir}"/>
 	     </java>
@@ -57,22 +78,21 @@
 
 	  <target name="ordersReport" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
-	  	       classname="admin.OrdersReport"
+	  	       classname="admin.OrderReports"
 	  	       classpathref="project.classpath">
 	     	   <classpath path="${build.dir}"/>
 	     </java>
 	  </target>
 
-	<target name="deploy" depends="ear">
+	<target name="deploy" depends="war" description="Deploy to App Server">
+		<copy file="${warfile}" todir="${deploy.dir}"/>
 	</target>
 	
-	<target name="ear" depends="ejb-jar,war">
-	</target>
-	
-	<target name="ejb-jar" depends="compile">
-	</target>
-	
-	<target name="war" depends="compile">
+	<!-- This is an EJB 3.1+ deployment, so it does not need a separate ear file!
+	-->	
+	<target name="war" depends="compile, copymetafiles, copyweb">
+		<war basedir="build" warfile="${warfile}" manifest="manifest.stub"
+		/>
 	</target>
 						
 </project>
