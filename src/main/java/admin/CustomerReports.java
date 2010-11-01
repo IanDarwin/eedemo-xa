@@ -13,7 +13,7 @@ public class CustomerReports {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 
-		System.out.println("NativeReports.main()");
+		System.out.println("CustomerReports.main()");
 
 		EntityManagerFactory entityMgrFactory = null;
 		EntityManager entityManager = null;
