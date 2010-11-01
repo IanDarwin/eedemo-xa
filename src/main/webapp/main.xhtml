@@ -10,10 +10,11 @@
 <h:body>       
 
     <ui:composition template="/main_template.xhtml">
-    <ui:param name="title" value="JPA With XA Demo"/>
+    <ui:param name="title" value="JPA With XA Demo: Acknowledgement"/>
     <ui:define name="content">
-    
-	<h:commandButton action="#{orderWebBean.saveOrder()}"/>
+    <h:form>
+	<h:commandButton value="Go for it" action="#{orderWebBean.saveOrder}"/>
+	</h:form>
 	
 	</ui:define>
 	</ui:composition>
