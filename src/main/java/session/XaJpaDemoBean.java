@@ -2,7 +2,6 @@ package session;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import domain.Customer;
@@ -15,24 +14,21 @@ public class XaJpaDemoBean {
 	@PersistenceContext(name="orders") EntityManager orderEntityManager;
 
 	public void saveCustomerOrder(Customer c, Order o, Boolean succeeds) {
+		System.out.println("XaJpaDemoBean.saveCustomerOrder()");
 		try {
-			EntityTransaction customerTransaction = customerEntityManager.getTransaction();
-			customerTransaction.begin();
-
+			
 			// Update the customer entity in the database.
+			System.out.println(1);
 			customerEntityManager.merge(c);
+			System.out.println(2);
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
-			customerTransaction.commit();
+			System.out.println(3);
 			
 			int cid = c.getId();
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + cid);
 			
-			EntityTransaction orderTransaction = orderEntityManager.getTransaction();
-			orderTransaction.begin();
-
 			// Insert the order entity in the database.
-			orderEntityManager.persist(c);
-			orderTransaction.commit();
+			orderEntityManager.persist(o);
 			
 			int oid = o.getId();
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Created order with Id " + oid);
