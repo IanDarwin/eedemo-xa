@@ -13,8 +13,8 @@ import domain.Order;
 
 public class XaJpaDemoBean {
 
-	@PersistenceContext EntityManager customerEntityManager;
-	@PersistenceContext EntityManager orderEntityManager;
+	@PersistenceContext(name="customer") EntityManager customerEntityManager;
+	@PersistenceContext(name="orders") EntityManager orderEntityManager;
 
 	public void saveCustomerOrder(Customer c, Order o, Boolean succeeds) {
 		try {
