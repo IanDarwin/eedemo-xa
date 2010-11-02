@@ -52,7 +52,7 @@
 	    	<patternset refid="meta.files"/>
 	  	  </fileset>
 	    </copy>
-	  	<copy todir="${build.dir}">
+	  	<copy todir="${build.dir}/WEB-INF/classes">
 	  	  <fileset dir="${src.etc.dir}">
 	  	  	  <patternset refid="meta.files"/>
 	  	  </fileset>
