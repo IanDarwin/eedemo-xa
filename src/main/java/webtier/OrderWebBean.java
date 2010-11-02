@@ -22,8 +22,7 @@ public class OrderWebBean {
 	int orderQuantity;
 	
 	public void saveOrder() {
-		Customer c = new Customer("Alpha");
-		c.setId(1);	// ugly hack for now, see import.sql
+		Customer c = dao.findCustomer(1);
 		Order o = new Order();
 		o.setDate(new Date());
 		o.setQuantity(42);

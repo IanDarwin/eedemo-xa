@@ -12,6 +12,10 @@ public class XaJpaDemoBean {
 
 	@PersistenceContext(name="customer") EntityManager customerEntityManager;
 	@PersistenceContext(name="orders") EntityManager orderEntityManager;
+	
+	public Customer findCustomer(int id) {
+		return customerEntityManager.find(Customer.class, id);
+	}
 
 	public void saveCustomerOrder(Customer c, Order o, Boolean succeeds) {
 		System.out.println("XaJpaDemoBean.saveCustomerOrder()");
