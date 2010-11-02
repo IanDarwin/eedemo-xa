@@ -22,9 +22,6 @@ public class XaJpaDemoBean {
 		try {
 			
 			// Update the customer entity in the database.
-			System.out.println(1);
-			customerEntityManager.merge(c);
-			System.out.println(2);
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
 			System.out.println(3);
 			
