@@ -1,4 +1,4 @@
-<project name="JPA Demo with XA" default="run">
+<project name="JPA Demo with XA" default="deploy">
 
 	<property name="src.java.dir" value="src"/>
 	<property name="lib.dir" value="lib"/>
@@ -7,7 +7,7 @@
 	<property name="warfile" value="jpademo-xa.war"/>
 
 	<!--
-	 MUST HAVE at least one line, defining deploy.dir, e.g.
+	 You need a build.properties, which MUST HAVE define deploy.dir, e.g.
 	 deploy.dir=/var/tomcat/webapps/
 	 If using a web container that isn't smart enough to handle 'drop a war'
 	 deployments, you'll have to re-write the deploy target (end of file).
@@ -18,6 +18,7 @@
 	    <fileset dir="${lib.dir}">
 	      <include name="**/*.jar"/> 
 	    </fileset>
+	  	<dirset dir="${build.dir}/WEB-INF/classes"/>
 	  </path>
 	
 	  <patternset id="meta.files">
@@ -36,10 +37,10 @@
 	  	</target>
 	
 	  <target name="compile" depends="init">
-		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${build.dir}/WEB-INF/classes"/>
 	    <javac 
 	  	    srcdir="${src.java.dir}"
-	  	    destdir="${build.dir}"
+	  	    destdir="${build.dir}/WEB-INF/classes"
 	  	    debug="on" nowarn="on">
 	     <classpath refid="project.classpath"/>
 	    </javac>
@@ -66,9 +67,9 @@
 	  	  </copy>
 	  </target>
 	
-	<target name="run" depends="customersReport,ordersReport"/>
+	<target name="run" depends="customerReports,orderReports"/>
 
-	  <target name="customersReport" depends="compile, copymetafiles">
+	  <target name="customerReports" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
 	  	       classname="admin.CustomerReports"
 	  	       classpathref="project.classpath">
@@ -76,7 +77,7 @@
 	     </java>
 	  </target>
 
-	  <target name="ordersReport" depends="compile, copymetafiles">
+	  <target name="orderReports" depends="compile, copymetafiles">
 	     <java fork="true" failonerror="true"
 	  	       classname="admin.OrderReports"
 	  	       classpathref="project.classpath">
@@ -91,7 +92,10 @@
 	<!-- This is an EJB 3.1+ deployment, so it does not need a separate ear file!
 	-->	
 	<target name="war" depends="compile, copymetafiles, copyweb">
-		<war basedir="build" warfile="${warfile}" manifest="manifest.stub"
+		<war basedir="${build.dir}" 
+			warfile="${warfile}"
+			webxml="web/WEB-INF/web.xml"
+			manifest="manifest.stub"
 		/>
 	</target>
 						
