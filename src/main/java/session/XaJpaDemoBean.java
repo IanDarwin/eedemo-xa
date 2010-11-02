@@ -23,7 +23,7 @@ public class XaJpaDemoBean {
 			
 			// Update the customer entity in the database.
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
-			System.out.println(3);
+			System.out.println("XaJpaDemoBean.saveCustomerOrder(): 3");
 			
 			int cid = c.getId();
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + cid);
