@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE datasources
+    PUBLIC "-//JBoss//DTD JBOSS JCA Config 1.5//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd">
+<datasources>
+   
+   <!-- customers -->
+   <jta-datasource>
+      <jndi-name>andcookDatasource</jndi-name>
+      <use-java-context>true</use-java-context>
+      <connection-url>jdbc:postgresql:t1</connection-url>
+      <driver-class>org.postgresql.Driver</driver-class>
+      <user-name>xactiontest</user-name>
+      <password>xactiontest</password>
+   </jta-datasource>
+
+   <!-- orders -->
+   <jta-datasource>
+      <jndi-name>andcookDatasource</jndi-name>
+      <use-java-context>true</use-java-context>
+      <connection-url>jdbc:postgresql:t2</connection-url>
+      <driver-class>org.postgresql.Driver</driver-class>
+      <user-name>xactiontest</user-name>
+      <password>xactiontest</password>
+   </jta-datasource>
+    
+</datasources>
