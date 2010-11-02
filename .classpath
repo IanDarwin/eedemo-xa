@@ -28,5 +28,7 @@
 	<classpathentry kind="lib" path="lib/org.eclipse.persistence.oracle_1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.persistence.sdo_1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql.jar"/>
+	<classpathentry kind="lib" path="lib/jsf-api.jar"/>
+	<classpathentry kind="lib" path="lib/jsf-impl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
