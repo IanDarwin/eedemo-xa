@@ -6,7 +6,7 @@
 <persistence-unit name="customer">
 
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-	<jta-data-source>customerDatasource</jta-data-source>     
+	<jta-data-source>java:customerDatasource</jta-data-source>     
 	<class>domain.Customer</class>
 	
 	<properties>
@@ -40,7 +40,7 @@
 <persistence-unit name="orders">
 
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	<jta-data-source>ordersDatasource</jta-data-source>
+	<jta-data-source>java:ordersDatasource</jta-data-source>
       
 	<class>domain.Order</class>
 
