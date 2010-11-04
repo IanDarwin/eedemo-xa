@@ -25,12 +25,14 @@
    
    <!-- customers -->
    <xa-datasource>
-      <jndi-name>customers</jndi-name>
+      <jndi-name>customerDatasource</jndi-name>
       <use-java-context>true</use-java-context>
-      <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
-      <xa-datasource-property name="URL">jdbc:postgresql:t1</xa-datasource-property>
-      <user-name>xactiontest</user-name>
-      <password>xactiontest</password>
+      <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	<xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+	<xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+	<xa-datasource-property name="DatabaseName">t1</xa-datasource-property>
+	<user-name>xactiontest</user-name>
+	<password>xactiontest</password>
 	<min-pool-size>1</min-pool-size>
 	<max-pool-size>10</max-pool-size>
 	<idle-timeout-minutes>10</idle-timeout-minutes>
@@ -42,12 +44,14 @@
 
    <!-- orders -->
    <xa-datasource>
-      <jndi-name>orders</jndi-name>
+      <jndi-name>ordersDatasource</jndi-name>
       <use-java-context>true</use-java-context>
-      <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
-      <xa-datasource-property name="URL">jdbc:postgresql:t2</xa-datasource-property>
-      <user-name>xactiontest</user-name>
-      <password>xactiontest</password>
+      <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+	<xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+	<xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+	<xa-datasource-property name="DatabaseName">t2</xa-datasource-property>
+	<user-name>xactiontest</user-name>
+	<password>xactiontest</password>
 	<min-pool-size>1</min-pool-size>
 	<max-pool-size>10</max-pool-size>
 	<idle-timeout-minutes>10</idle-timeout-minutes>
