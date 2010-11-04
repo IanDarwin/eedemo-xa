@@ -1,6 +1,6 @@
 <project name="JPA Demo with XA" default="deploy">
 	
-	<property name="project-name" value="jpademo_xa"/>
+	<property name="project-name" value="jpademo-xa"/>
 
 	<property name="src.java.dir" value="src"/>
 	<property name="lib.dir" value="lib"/>
@@ -91,6 +91,11 @@
 	<target name="deploy" depends="war" description="Deploy to App Server">
 		<copy file="${warfile}" todir="${deploy.dir}"/>
 		<copy file="${datasource}" tofile="${deploy.dir}/${project-name}-ds.xml"/>
+	</target>
+
+	<target name="undeploy" description="Undeploy by removing from App Server">
+		<delete file="${deploy.dir}/${warfile}"/>
+		<delete file="${deploy.dir}/${project-name}-ds.xml"/>
 	</target>
 	
 	<!-- This is an EJB 3.1+ deployment, so it does not need a separate ear file!
