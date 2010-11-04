@@ -5,10 +5,10 @@
    
 <persistence-unit name="customer">
 
-	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<!--
-	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	-->
+	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 	<jta-data-source>java:customerDatasource</jta-data-source>     
 	<class>domain.Customer</class>
