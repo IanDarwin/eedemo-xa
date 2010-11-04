@@ -37,7 +37,7 @@ public class OrderWebBean {
 		o2.setDate(new Date());
 		o2.setQuantity(100);
 
-		dao.saveCustomerOrder(c, o, false);
+		dao.saveCustomerOrder(c, o2, false);
 	}
 }
 
