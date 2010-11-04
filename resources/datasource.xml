@@ -3,25 +3,57 @@
     PUBLIC "-//JBoss//DTD JBOSS JCA Config 1.5//EN"
     "http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd">
 <datasources>
+
+   <!-- DOCTYPE Fragment for xa-datasource:
+	xa-datasource (jndi-name , use-java-context?, track-connection-by-tx
+	, xa-datasource-class , xa-datasource-property* , url-property?,
+	url-delimiter?, url-selector-strategy-class-name?, isSameRM-override-value?
+	, transaction-isolation? , user-name? , password? ,
+	(application-managed-security | security-domain |
+	security-domain-and-application)? , min-pool-size? , max-pool-size?
+	, blocking-timeout-millis? , background-validation?,
+	background-validation-minutes? , idle- timeout-minutes? ,
+	validate-on-match?, no-tx-separate-pools? , xa-resource-timeout?,
+	new-connection-sql? , check-valid-connection-sql? ,
+	valid-connection-checker-class-name? , exception-sorter-class-name?
+	, stale-connection-checker-class-name?, track-statement s? , prefill?,
+	use-fast-fail?, prepared-statement-cache-size?, share-prepared-statements?
+	, set-tx-query-timeout?, query-timeout?, use-try-lock?, metadata?,
+	type-mapping?, depends*)
+	-->
+
    
    <!-- customers -->
-   <jta-datasource>
+   <xa-datasource>
       <jndi-name>andcookDatasource</jndi-name>
       <use-java-context>true</use-java-context>
-      <connection-url>jdbc:postgresql:t1</connection-url>
-      <driver-class>org.postgresql.Driver</driver-class>
+      <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
+      <xa-datasource-property name="URL">jdbc:postgresql:t1</xa-datasource-property>
       <user-name>xactiontest</user-name>
       <password>xactiontest</password>
-   </jta-datasource>
+	<min-pool-size>1</min-pool-size>
+	<max-pool-size>10</max-pool-size>
+	<idle-timeout-minutes>10</idle-timeout-minutes>
+	<metadata>
+	<type-mapping>PostgreSQL</type-mapping>
+	</metadata>
+    </xa-datasource>
+
 
    <!-- orders -->
-   <jta-datasource>
+   <xa-datasource>
       <jndi-name>andcookDatasource</jndi-name>
       <use-java-context>true</use-java-context>
-      <connection-url>jdbc:postgresql:t2</connection-url>
-      <driver-class>org.postgresql.Driver</driver-class>
+      <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
+      <xa-datasource-property name="URL">jdbc:postgresql:t2</xa-datasource-property>
       <user-name>xactiontest</user-name>
       <password>xactiontest</password>
-   </jta-datasource>
+	<min-pool-size>1</min-pool-size>
+	<max-pool-size>10</max-pool-size>
+	<idle-timeout-minutes>10</idle-timeout-minutes>
+	<metadata>
+	<type-mapping>PostgreSQL</type-mapping>
+	</metadata>
+    </xa-datasource>
     
 </datasources>

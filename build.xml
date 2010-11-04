@@ -1,10 +1,13 @@
 <project name="JPA Demo with XA" default="deploy">
+	
+	<property name="project-name" value="jpademo_xa"/>
 
 	<property name="src.java.dir" value="src"/>
 	<property name="lib.dir" value="lib"/>
 	<property name="build.dir" value="dist"/>
 	<property name="src.etc.dir" value="etc"/>
-	<property name="warfile" value="jpademo-xa.war"/>
+	<property name="datasource" value="resources/datasource.xml"/>
+	<property name="warfile" value="${project-name}.war"/>
 
 	<!--
 	 You need a build.properties, which MUST HAVE define deploy.dir, e.g.
@@ -87,6 +90,7 @@
 
 	<target name="deploy" depends="war" description="Deploy to App Server">
 		<copy file="${warfile}" todir="${deploy.dir}"/>
+		<copy file="${datasource}" tofile="${deploy.dir}/${project-name}-ds.xml"/>
 	</target>
 	
 	<!-- This is an EJB 3.1+ deployment, so it does not need a separate ear file!
