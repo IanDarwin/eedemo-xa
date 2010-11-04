@@ -25,7 +25,7 @@
    
    <!-- customers -->
    <xa-datasource>
-      <jndi-name>andcookDatasource</jndi-name>
+      <jndi-name>customers</jndi-name>
       <use-java-context>true</use-java-context>
       <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
       <xa-datasource-property name="URL">jdbc:postgresql:t1</xa-datasource-property>
@@ -42,7 +42,7 @@
 
    <!-- orders -->
    <xa-datasource>
-      <jndi-name>andcookDatasource</jndi-name>
+      <jndi-name>orders</jndi-name>
       <use-java-context>true</use-java-context>
       <xa-datasource-class>org.postgresql.Driver</xa-datasource-class>
       <xa-datasource-property name="URL">jdbc:postgresql:t2</xa-datasource-property>
