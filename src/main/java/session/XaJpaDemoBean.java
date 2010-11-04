@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import domain.Customer;
 import domain.Order;
 
-@Stateless
+@Stateless(name="XaJpaDemoBean")
 public class XaJpaDemoBean {
 
 	@PersistenceContext(name="customer") EntityManager customerEntityManager;
