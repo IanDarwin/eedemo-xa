@@ -17,27 +17,27 @@ import domain.Order;
 @ManagedBean
 @TransactionManagement()
 public class OrderWebBean {
-	@EJB XaJpaDemoBean dao;
+	@EJB(name="XaJpaDemoBean") XaJpaDemoBean ejb;
 	Customer customer;
 	int orderQuantity;
 	
 	public void saveOrder() {
-		Customer c = dao.findCustomer(1);
+		Customer c = ejb.findCustomer(1);
 		Order o = new Order();
 		o.setDate(new Date());
 		o.setQuantity(42);
 		
-		dao.saveCustomerOrder(c, o, true);
+		ejb.saveCustomerOrder(c, o, true);
 	}
 
 	public void saveOrderFail() {
-		Customer c = dao.findCustomer(1);
+		Customer c = ejb.findCustomer(1);
 		
 		Order o2 = new Order();
 		o2.setDate(new Date());
 		o2.setQuantity(100);
 
-		dao.saveCustomerOrder(c, o2, false);
+		ejb.saveCustomerOrder(c, o2, false);
 	}
 }
 
