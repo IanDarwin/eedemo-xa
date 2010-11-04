@@ -20,20 +20,16 @@ public class XaJpaDemoBean {
 	public void saveCustomerOrder(Customer c, Order o, Boolean succeeds) {
 		System.out.println("XaJpaDemoBean.saveCustomerOrder()");
 		try {
-			
+
 			// Update the customer entity in the database.
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
-			System.out.println("XaJpaDemoBean.saveCustomerOrder(): 3");
-			
-			int cid = c.getId();
-			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + cid);
-			
+			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + c.getId());
+
 			// Insert the order entity in the database.
 			orderEntityManager.persist(o);
-			
-			int oid = o.getId();
-			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Created order with Id " + oid);
-			
+
+			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Created order with Id " + o.getId());
+
 		} finally {	
 			if (!succeeds) {
 				throw new RuntimeException("XaJpaDemoBean.saveCustomerOrder(): Simulated failure!");
