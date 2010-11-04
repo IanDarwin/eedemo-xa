@@ -12,6 +12,14 @@
     <ui:composition template="/main_template.xhtml">
     <ui:param name="title" value="JPA With XA Demo"/>
     <ui:define name="content">
+    This page simulates saving an order on behalf
+    of a customer; the Order object is saved in the
+    orders database atomically with updating the customer's
+    object's order quantity. The Add button should do
+    this; the Fail button should roll back its transaction
+    and leave the database unchanged.
+    <h:messages/>
+    
     <h:form>
 	<h:commandButton value="Save Fake Order" action="#{orderWebBean.saveOrder}"/>
 	<h:commandButton value="Show Failure" action="#{orderWebBean.saveOrderFail}"/>
