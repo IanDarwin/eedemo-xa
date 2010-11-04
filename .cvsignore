@@ -1,5 +1,6 @@
-tmp
 bin
 build.properties
 dist
+jpademo-xa.war
 jpademo_xa.war
+tmp
