@@ -1,5 +1,7 @@
 package session;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -17,6 +19,7 @@ public class XaJpaDemoBean {
 
 	@PersistenceContext(name="customer") EntityManager customerEntityManager;
 	@PersistenceContext(name="orders") EntityManager orderEntityManager;
+	@Resource private SessionContext sessionCtx;
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Customer findCustomer(int id) {
@@ -39,6 +42,11 @@ public class XaJpaDemoBean {
 
 		} finally {	
 			if (!succeeds) {
+				if (sessionCtx != null) {
+					sessionCtx.setRollbackOnly();
+				} else {
+					System.out.println("SessionContext is null, wrong @Resource!");
+				}
 				throw new RuntimeException("XaJpaDemoBean.saveCustomerOrder(): Simulated failure!");
 			}
 		}
