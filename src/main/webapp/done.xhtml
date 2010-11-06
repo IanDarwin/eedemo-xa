@@ -13,7 +13,13 @@
     <ui:param name="title" value="JPA With XA Demo: Acknowledgement"/>
     <ui:define name="content">
     
+    <h:messages/>
+    
     <h:outputText value="Done!"/>
+    <br/>
+    <h:outputLink value="main.web">
+		<h:outputText value="Back" />
+	</h:outputLink>
 
 	</ui:define>
 	</ui:composition>
