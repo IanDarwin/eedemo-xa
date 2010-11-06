@@ -30,5 +30,6 @@
 	<classpathentry kind="lib" path="lib/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/jsf-api.jar"/>
 	<classpathentry kind="lib" path="lib/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-ejb-api_3.1_spec.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
