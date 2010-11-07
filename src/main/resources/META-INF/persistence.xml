@@ -5,10 +5,11 @@
    
 <persistence-unit name="customer">
 
-	<!--
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	-->
+	<!--
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+	-->
 
 	<jta-data-source>java:customerDatasource</jta-data-source>     
 	
@@ -45,6 +46,7 @@
 	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<!--
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 	-->
 
 	<jta-data-source>java:ordersDatasource</jta-data-source>
