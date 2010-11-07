@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,8 +14,10 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name="ORDERS")
-public class Order {
-	
+public class Order implements Serializable {
+
+	private static final long serialVersionUID = -1761022810625278L;
+
 	private int id;
 	
 	private Date date;
