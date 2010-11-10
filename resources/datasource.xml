@@ -23,14 +23,15 @@
 	-->
 
    
-   <!-- customers -->
+   <!-- customer -->
    <xa-datasource>
       <jndi-name>customerDatasource</jndi-name>
-      <use-java-context>true</use-java-context>
+      <use-java-context>false</use-java-context>
+      <track-connection-by-tx>true</track-connection-by-tx>
       <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
 	<xa-datasource-property name="ServerName">localhost</xa-datasource-property>
 	<xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-	<xa-datasource-property name="DatabaseName">t1</xa-datasource-property>
+	<xa-datasource-property name="DatabaseName">customer</xa-datasource-property>
 	<user-name>xactiontest</user-name>
 	<password>xactiontest</password>
 	<min-pool-size>1</min-pool-size>
@@ -45,11 +46,12 @@
    <!-- orders -->
    <xa-datasource>
       <jndi-name>ordersDatasource</jndi-name>
-      <use-java-context>true</use-java-context>
+      <use-java-context>false</use-java-context>
+      <track-connection-by-tx>true</track-connection-by-tx>
       <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
 	<xa-datasource-property name="ServerName">localhost</xa-datasource-property>
 	<xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-	<xa-datasource-property name="DatabaseName">t2</xa-datasource-property>
+	<xa-datasource-property name="DatabaseName">orders</xa-datasource-property>
 	<user-name>xactiontest</user-name>
 	<password>xactiontest</password>
 	<min-pool-size>1</min-pool-size>
