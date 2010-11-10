@@ -1,6 +1,6 @@
 bin
 build.properties
 dist
-jpademo-xa.war
-jpademo_xa.war
+ee6demo-xa.war
+ee6demo_xa.war
 tmp

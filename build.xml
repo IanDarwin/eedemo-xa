@@ -1,6 +1,6 @@
 <project name="JPA Demo with XA" default="deploy">
 	
-	<property name="project-name" value="jpademo-xa"/>
+	<property name="project-name" value="ee6demo-xa"/>
 
 	<property name="src.java.dir" value="src"/>
 	<property name="lib.dir" value="lib"/>
