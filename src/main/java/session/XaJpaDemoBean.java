@@ -17,8 +17,8 @@ import domain.Order;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class XaJpaDemoBean {
 
-	@PersistenceContext(name="customer") EntityManager customerEntityManager;
-	@PersistenceContext(name="orders") EntityManager orderEntityManager;
+	@PersistenceContext(unitName="customer") EntityManager customerEntityManager;
+	@PersistenceContext(unitName="orders") EntityManager orderEntityManager;
 	@Resource private SessionContext sessionCtx;
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -45,9 +45,8 @@ public class XaJpaDemoBean {
 				if (sessionCtx != null) {
 					sessionCtx.setRollbackOnly();
 				} else {
-					System.out.println("SessionContext is null, wrong @Resource!");
+					throw new RuntimeException("SessionContext is null, wrong @Resource!");
 				}
-				throw new RuntimeException("XaJpaDemoBean.saveCustomerOrder(): Simulated failure!");
 			}
 		}
 	}

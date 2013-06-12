@@ -19,8 +19,8 @@ import domain.Order;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class PopulateDatabaseSingletonBean {
 	
-		@PersistenceContext(name="customer") EntityManager customerEntityManager;
-		@PersistenceContext(name="orders") EntityManager orderEntityManager;
+		@PersistenceContext(unitName="customer") EntityManager customerEntityManager;
+		@PersistenceContext(unitName="orders") EntityManager orderEntityManager;
 		
 		@PostConstruct
 		public void initDB() {
