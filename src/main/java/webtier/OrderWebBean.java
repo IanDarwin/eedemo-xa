@@ -2,7 +2,6 @@ package webtier;
 
 import java.util.Date;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.TransactionManagement;
 import javax.faces.application.FacesMessage;
