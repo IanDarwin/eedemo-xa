@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.TransactionManagement;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +20,7 @@ import domain.Order;
 @ManagedBean
 @TransactionManagement()
 public class OrderWebBean {
-	@EJB(name="XaJpaDemoBean") XaJpaDemoBean ejb;
+	@EJB XaJpaDemoBean ejb;
 	Customer customer;
 	int orderQuantity;
 	
@@ -40,8 +39,6 @@ public class OrderWebBean {
 		return "done";
 	}
 	
-	@Resource SessionContext sessionContext;
-
 	public String saveOrderFail() {
 		Customer c = ejb.findCustomer(1);
 		
@@ -51,7 +48,7 @@ public class OrderWebBean {
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("(Simulated failure: setRollBackOnly)"));
 		
-		sessionContext.setRollbackOnly();
+		ejb.getSessionContext().setRollbackOnly();
 		ejb.saveCustomerOrder(c, o2, false);
 		return "done"; // NOTREACHED
 	}

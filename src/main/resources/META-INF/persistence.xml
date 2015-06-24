@@ -2,16 +2,18 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
    version="1.0">
+
+<!-- Two persistence units for the XA demo -->
    
 <persistence-unit name="customer">
 
-	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	<!--
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<!--
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 	-->
 
-	<jta-data-source>java:customerDatasource</jta-data-source>     
+	<jta-data-source>java:jboss/datasources/customersDataSource</jta-data-source>
 	
 	<class>domain.Customer</class>
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -19,7 +21,7 @@
 	<properties>
 
 	<!-- Properties for Hibernate -->
-	<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+	<property name="hibernate.hbm2ddl.auto" value="create"/>
 	<property name="hibernate.show_sql" value="true"/>
 	<property name="hibernate.format_sql" value="false"/>
 	<property name="hibernate.archive.autodetection" value="class"/>
@@ -43,21 +45,21 @@
 
 <persistence-unit name="orders">
 
-	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	<!--
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<!--
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 	-->
 
-	<jta-data-source>java:ordersDatasource</jta-data-source>
-      
+	<jta-data-source>java:jboss/datasources/ordersDataSource</jta-data-source>
+
 	<class>domain.Order</class>
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	<properties>
 
 	<!-- Properties for Hibernate -->
-	<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+	<property name="hibernate.hbm2ddl.auto" value="create"/>
 	<property name="hibernate.show_sql" value="true"/>
 	<property name="hibernate.format_sql" value="false"/>
 	<property name="hibernate.archive.autodetection" value="class"/>

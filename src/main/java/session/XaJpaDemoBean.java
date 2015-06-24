@@ -50,4 +50,9 @@ public class XaJpaDemoBean {
 			}
 		}
 	}
+
+	/** Unusual, for demo purposes only */
+	public SessionContext getSessionContext() {
+		return sessionCtx;
+	}
 }
