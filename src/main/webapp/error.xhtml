@@ -19,7 +19,13 @@
     
     <br/>
     
-    Problem was: #{request["javax.servlet.error.exception"]}.
+    <ui:fragment rendered="#{!empty jsfErrorBean.throwable}">
+    Problem was: #{jsfErrorBean.throwable}.
+    Stacktrace:
+    <pre>
+    #{jsfErrorBean.stacktrace}
+    </pre>
+    </ui:fragment>
     
     </ui:define>
     </ui:composition>
