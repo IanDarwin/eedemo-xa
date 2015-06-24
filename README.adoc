@@ -9,34 +9,39 @@ Requires a full Java EE server, not just Tomcat or Jetty.
 
 === Create the databases
 
-psql <<!xa
+This is for PostgreSQL; for others you can vary these appropriately.
+
+----
+$ psql <<!xa
 create role xademo login password 'ex eh demo?';
 create database xademo_customers owner xademo;
 create database xademo_orders owner xademo;
 !xa
+----
 
 === Add Datasources in Wildfly standalone.xml:
 
+This is for JBoss WildFly 8; for others you can vary these appropriately.
+
 ----
 				<!-- Only for eedemo-xa -->
-                <datasource jndi-name="java:jboss/datasources/customerDataSource" pool-name="customerDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:postgresql:xademo_customers</connection-url>
-                    <driver>postgres</driver>
-                    <security>
-                        <user-name>xademo</user-name>
-                        <password>ex eh demo?</password>
-                    </security>
-                </datasource>
+				<datasource jndi-name="java:jboss/datasources/customerDataSource" pool-name="customerDS" enabled="true" use-java-context="true">
+					<connection-url>jdbc:postgresql:xademo_customers</connection-url>
+					<driver>postgres</driver>
+					<security>
+						<user-name>xademo</user-name>
+						<password>ex eh demo?</password>
+					</security>
+				</datasource>
 				<!-- Only for eedemo-xa -->
-                <datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:postgresql:xademo_orders</connection-url>
-                    <driver>postgres</driver>
-                    <security>
-                        <user-name>xademo</user-name>
-                        <password>ex eh demo?</password>
-                    </security>
-                </datasource>
-
+				<datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS" enabled="true" use-java-context="true">
+					<connection-url>jdbc:postgresql:xademo_orders</connection-url>
+					<driver>postgres</driver>
+					<security>
+						<user-name>xademo</user-name>
+						<password>ex eh demo?</password>
+					</security>
+				</datasource>
 ----
 
 === Restart WildFly
