@@ -1,6 +1,4 @@
 bin
 build.properties
 dist
-ee6demo-xa.war
-ee6demo_xa.war
-tmp
+target
