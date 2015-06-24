@@ -12,12 +12,19 @@
     <ui:composition template="/main_template.xhtml">
     <ui:param name="title" value="JPA With XA Demo"/>
     <ui:define name="content">
+
+	<p>
     This page simulates saving an order on behalf
-    of a customer; the Order object is saved in the
+    of a customer; the Order object for 42 items is saved in the
     orders database atomically with updating the customer's
-    object's order quantity. The Add button should do
-    this; the Fail button should roll back its transaction
+    object's order quantity. The Save button should do
+    this; the Fail button should roll back its transaction (which orders 86 items instead)
     and leave the database unchanged.
+	</p>
+	<p>
+	So you can verify correct operation by looking in the database for those quantity numbers;
+	you should see one or more 42's and no 86's.
+	</p>
     <h:messages/>
     
     <h:form>
