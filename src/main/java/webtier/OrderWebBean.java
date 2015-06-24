@@ -43,11 +43,11 @@ public class OrderWebBean {
 		
 		Order o2 = new Order();
 		o2.setDate(new Date());
-		o2.setQuantity(100);
+		o2.setQuantity(86);
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("(Simulated failure: setRollBackOnly)"));
 		
-		ejb.getSessionContext().setRollbackOnly();
+		// The 3rd arg 'false' will invoke setRollbackOnly();
 		ejb.saveCustomerOrder(c, o2, false);
 		return "done"; // NOTREACHED
 	}
