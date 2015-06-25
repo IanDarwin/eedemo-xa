@@ -66,8 +66,8 @@ This is for JBoss WildFly 8; for others you can vary these appropriately.
 For postgresql, make sure you use the xa-datasource, not the plain datasource.
 
 ----
-				<!-- Only for eedemo-xa -->
-                <xa-datasource jndi-name="java:jboss/datasources/customersDataSource" pool-name="customersDS" enabled="true">
+                <!-- Only for eedemo-xa -->
+                <xa-datasource jndi-name="java:jboss/datasources/customersDataSource" pool-name="customersDS">
                     <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
                     <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
                     <xa-datasource-property name="DatabaseName">xademo_customers</xa-datasource-property>
@@ -82,8 +82,8 @@ For postgresql, make sure you use the xa-datasource, not the plain datasource.
                     </validation>
                 </xa-datasource>
 
-				<!-- Only for eedemo-xa -->
-                <xa-datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS" enabled="true">
+                <!-- Only for eedemo-xa -->
+                <xa-datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS">
                     <xa-datasource-property name="ServerName"> localhost </xa-datasource-property>
                     <xa-datasource-property name="PortNumber"> 5432 </xa-datasource-property>
                     <xa-datasource-property name="DatabaseName"> xademo_orders </xa-datasource-property>
@@ -116,8 +116,10 @@ Use your system's scripts or $WF_HOME/bin/standalone.sh
 
 === Deploy the app
 
+----
 $ cd eedemo-xa
 $ mvn wildfly:deploy
+----
 
 === Run it
 
