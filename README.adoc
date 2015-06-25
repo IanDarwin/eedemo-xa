@@ -170,5 +170,6 @@ Things to do to improve it:
 . Delete the "done" page and move the messages into the main page (simple).
 . The Reporting programs in src/main/java/admin have not worked in a long time,
 since the persistence.xml file is set up for JTA in the EE server. 
-Either rewrite them as web components, or, provide an alternate persistence.xml for them 
-and see if they still work, or, just delete them and use psql, as in the Verify section above.
+Either rewrite them as web components, or, provide an alternate (non-JTA) persistence unit 
+in persistence.xml and see if they still work. Or, just delete them and use psql, 
+as in the Verify section above.
