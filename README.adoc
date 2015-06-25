@@ -167,3 +167,4 @@ Hope you enjoyed this project!
 Things to do to improve it:
 
 . The Order should have an @ManyToOne to Customer, adding customer_id to the orders table.
+. Delete the "done" page and move the messages into the main page (simple).
