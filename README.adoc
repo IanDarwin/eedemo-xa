@@ -161,3 +161,9 @@ If you want to free up the resources from the demo:
 . Restart Wildfly
 
 Hope you enjoyed this project!
+
+== TODO
+
+Things to do to improve it:
+
+. The Order should have an @ManyToOne to Customer, adding customer_id to the orders table.
