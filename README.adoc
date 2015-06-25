@@ -7,9 +7,27 @@ Requires a full Java EE server, not just Tomcat or Jetty.
 
 == Setup 
 
+You have to do a bit of setup to make this thing work!
+
 === Create the databases
 
 This is for PostgreSQL; for others you can vary these appropriately.
+
+This assumes you have PostgreSQL already running on your computer and configured as a "module"
+in the WildFly server.
+
+Since JPA uses PreparedStatements, and since the point of this app is to demonstrate
+an XA commit, you have to tell PostgreSQL to allow prepared transactions. Try setting
+
+max_prepared_transactions = 20
+
+in _postgres.conf_ (whereever that is on your system; to give you a couple of data points,
+on OS X it is /Users/postgres/data/postgresql.conf and on OpenBSD it is 
+/var/postgresql/data/postgresql.conf ).
+
+You have to restart (nor reload) the server if you change this file.
+
+Now the actual database creation:
 
 ----
 $ psql <<!xa
@@ -22,26 +40,40 @@ create database xademo_orders owner xademo;
 === Add Datasources in Wildfly standalone.xml:
 
 This is for JBoss WildFly 8; for others you can vary these appropriately.
+For postgresql, make sure you use the xa-datasource, not the plain datasource.
 
 ----
 				<!-- Only for eedemo-xa -->
-				<datasource jndi-name="java:jboss/datasources/customerDataSource" pool-name="customerDS" enabled="true" use-java-context="true">
-					<connection-url>jdbc:postgresql:xademo_customers</connection-url>
-					<driver>postgres</driver>
-					<security>
-						<user-name>xademo</user-name>
-						<password>ex eh demo?</password>
-					</security>
-				</datasource>
+                <xa-datasource jndi-name="java:jboss/datasources/customersDataSource" pool-name="customersDS" enabled="true">
+                    <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+                    <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+                    <xa-datasource-property name="DatabaseName">xademo_customers</xa-datasource-property>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>xademo</user-name>
+                        <password>ex eh demo?</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                    </validation>
+                </xa-datasource>
+
 				<!-- Only for eedemo-xa -->
-				<datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS" enabled="true" use-java-context="true">
-					<connection-url>jdbc:postgresql:xademo_orders</connection-url>
-					<driver>postgres</driver>
-					<security>
-						<user-name>xademo</user-name>
-						<password>ex eh demo?</password>
-					</security>
-				</datasource>
+                <xa-datasource jndi-name="java:jboss/datasources/ordersDataSource" pool-name="ordersDS" enabled="true">
+                    <xa-datasource-property name="ServerName"> localhost </xa-datasource-property>
+                    <xa-datasource-property name="PortNumber"> 5432 </xa-datasource-property>
+                    <xa-datasource-property name="DatabaseName"> xademo_orders </xa-datasource-property>
+                    <driver>postgresql</driver>
+                    <security>
+                        <user-name>xademo</user-name>
+                        <password>ex eh demo?</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                    </validation>
+                </xa-datasource>
 ----
 
 === Restart WildFly
@@ -56,23 +88,48 @@ mvn wildfly:deploy
 
 === Run it
 
-Visit http://localhost:8080/eedemo-xa and click the buttons.
+Finally, you can visit http://localhost:8080/eedemo-xa and work through both buttons.
+Each should return a one-line summary, not a stack trace!
 
 === Verify
 
-psql -d xademo_customers
+You want to verify outside of the app:
 
+----
+psql -d xademo_customers
 select * from customer;
+# You should see one customer with non-zero orders:
+
+xademo_customers=# select * from customer;
+ id | name  | numberoforders | version 
+----+-------+----------------+---------
+  1 | Alpha |              2 |       2
+(1 row)
 
 \c xademo_orders
+select * from orders;
+# You should see order(s) with quantity 42, none with quantity 86:
 
-select * from order;
+xademo_orders=# select * from orders;
+ id |    date    | quantity | version 
+----+------------+----------+---------
+ -1 |            |        0 |     100
+  2 | 2015-06-24 |       42 |       0
+  3 | 2015-06-24 |       42 |       0
+(3 rows)
+
+----
+
+The order with id of -1 is a placeholder put there during app startup, and can be ignored
+(or even deleted if you like).
 
 === Clean up
+
+If you want to free up the resources from the demo:
 
 . cd eedemo-xa; mvn wildfly:undeploy
 . Stop Wildfly
 . psql -c 'drop database xademo_customers'
 . psql -c 'drop database xademo_orders'
-. Remove the two datasource definitions
+. Remove the two datasource definitions from Wildfly standalone.xml
 . Restart Wildfly
