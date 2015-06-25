@@ -3,7 +3,6 @@ package webtier;
 import java.util.Date;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionManagement;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -17,7 +16,6 @@ import domain.Order;
  * @author ian
  */
 @ManagedBean
-@TransactionManagement()
 public class OrderWebBean {
 	@EJB XaJpaDemoBean ejb;
 	Customer customer;
@@ -29,7 +27,7 @@ public class OrderWebBean {
 		o.setDate(new Date());
 		o.setQuantity(42);
 		
-		ejb.saveCustomerOrder(c, o, true);
+		ejb.saveCustomerOrder(c.getId(), o, true);
 		
 		final FacesMessage facesMessage = new FacesMessage();
 		facesMessage.setSummary("Added OK");
@@ -48,8 +46,8 @@ public class OrderWebBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("(Simulated failure: setRollBackOnly)"));
 		
 		// The 3rd arg 'false' will invoke setRollbackOnly();
-		ejb.saveCustomerOrder(c, o2, false);
-		return "done"; // NOTREACHED
+		ejb.saveCustomerOrder(c.getId(), o2, false);
+		return "done";
 	}
 }
 

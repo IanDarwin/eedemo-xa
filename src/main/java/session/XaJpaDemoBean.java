@@ -21,16 +21,17 @@ public class XaJpaDemoBean {
 	@PersistenceContext(unitName="orders") EntityManager orderEntityManager;
 	@Resource private SessionContext sessionCtx;
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	// No tx needed, this is read only, tx will not last beyond this return
+	// @TransactionAttribute()
 	public Customer findCustomer(int id) {
 		return customerEntityManager.find(Customer.class, id);
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void saveCustomerOrder(Customer c, Order o, Boolean succeeds) {
+	public void saveCustomerOrder(int customerId, Order o, Boolean succeeds) {
 		System.out.println("XaJpaDemoBean.saveCustomerOrder()");
 		try {
-
+			Customer c = findCustomer(customerId);
 			// Update the customer entity in the database.
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + c.getId());
@@ -49,10 +50,5 @@ public class XaJpaDemoBean {
 				}
 			}
 		}
-	}
-
-	/** Unusual, for demo purposes only */
-	public SessionContext getSessionContext() {
-		return sessionCtx;
 	}
 }
