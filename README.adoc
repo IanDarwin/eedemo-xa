@@ -3,11 +3,34 @@
 This uses JPA to commit a distributed transaction
 into two databases, customer and orders, as part of
 a single XA transaction. Or so we hope.
-Requires a full Java EE server, not just Tomcat or Jetty.
+
+Anything involving Java and multi-phase commit absolutely
+requires a full Java EE server (such as WildFly), not just Tomcat or Jetty.
+(At present TomEE cannot be used because its makers refuse to move up to Java EE 7);
+
+It is set up for the PostgreSQL database and the WildFly server.
+*Do not ask me for help moving it to other DB or server products*; 
+I charge US$100.00 to ignore each such request, and your sending it constitutes
+acceptance of this price.
+Well, seriously folks, that's why it's open source: so you can change it yourself.
+Please clone the GitHub repo and send a pull request when it's fully working
+on your new DB or server.
+
+== Prerequisites:
+
+You must have the following:
+
+. Java 7 or 8;
+. http://wildfly.org/[WildFly 8.2] or later Java app server, up and running;
+  (potentially other Java EE 7 app servers could be used, if *you* can make it work;
+. http://postgresql.org[PostgreSQL], the best relational database;
+. PostgreSQL JDBC driver (see postgresql.org for versions);
+. http://maven.apache.org[Maven];
+. Whatever I've forgotten.
 
 == Setup 
 
-You have to do a bit of setup to make this thing work!
+You do have to do a bit of setup to make this thing work!
 
 === Create the databases
 
@@ -16,12 +39,12 @@ This is for PostgreSQL; for others you can vary these appropriately.
 This assumes you have PostgreSQL already running on your computer and configured as a "module"
 in the WildFly server.
 
-Since JPA uses PreparedStatements, and since the point of this app is to demonstrate
-an XA commit, you have to tell PostgreSQL to allow prepared transactions. Try setting
+Since the point of this app is to demonstrate an XA commit, you have to tell PostgreSQL to allow 
+"prepared transactions". Try setting
 
 max_prepared_transactions = 20
 
-in _postgres.conf_ (whereever that is on your system; to give you a couple of data points,
+in _postgres.conf_ (wherever that is on your system; to give you a couple of data points,
 on OS X it is /Users/postgres/data/postgresql.conf and on OpenBSD it is 
 /var/postgresql/data/postgresql.conf ).
 
@@ -76,15 +99,25 @@ For postgresql, make sure you use the xa-datasource, not the plain datasource.
                 </xa-datasource>
 ----
 
+You might have to list the database driver as well, if it's not already there:
+
+----
+                <drivers>
+                    <driver name="postgresql" module="org.postgresql">
+                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                    </driver>
+					...
+                </drivers>
+----
+
 === Restart WildFly
 
-Using your system's scripts or $WF_HOME/bin/standalone.sh
+Use your system's scripts or $WF_HOME/bin/standalone.sh
 
 === Deploy the app
 
-cd eedemo-xa
-
-mvn wildfly:deploy
+$ cd eedemo-xa
+$ mvn wildfly:deploy
 
 === Run it
 
@@ -96,28 +129,21 @@ Each should return a one-line summary, not a stack trace!
 You want to verify outside of the app:
 
 ----
-psql -d xademo_customers
-select * from customer;
+$ psql -d xademo_customers -c 'select * from customer;'
 # You should see one customer with non-zero orders:
-
-xademo_customers=# select * from customer;
  id | name  | numberoforders | version 
 ----+-------+----------------+---------
   1 | Alpha |              2 |       2
 (1 row)
 
-\c xademo_orders
-select * from orders;
+$ psql -d xademo_orders -c 'select * from orders;'
 # You should see order(s) with quantity 42, none with quantity 86:
-
-xademo_orders=# select * from orders;
  id |    date    | quantity | version 
 ----+------------+----------+---------
  -1 |            |        0 |     100
+  1 | 2015-06-24 |       42 |       0
   2 | 2015-06-24 |       42 |       0
-  3 | 2015-06-24 |       42 |       0
 (3 rows)
-
 ----
 
 The order with id of -1 is a placeholder put there during app startup, and can be ignored
@@ -133,3 +159,5 @@ If you want to free up the resources from the demo:
 . psql -c 'drop database xademo_orders'
 . Remove the two datasource definitions from Wildfly standalone.xml
 . Restart Wildfly
+
+Hope you enjoyed this project!
