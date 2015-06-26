@@ -7,6 +7,8 @@ a single XA transaction. Or so we hope.
 Anything involving Java and multi-phase commit absolutely
 requires a full Java EE server (such as WildFly), not just Tomcat or Jetty.
 (At present TomEE cannot be used because its makers refuse to move up to Java EE 7);
+That is why there is NOT STANDALONE PROGRAM here and why we don't
+just use h2 or hsqldb.
 
 It is set up for the PostgreSQL database and the WildFly server.
 *Do not ask me for help moving it to other DB or server products*; 
@@ -14,11 +16,11 @@ I charge US$100.00 to ignore each such request, and your sending it constitutes
 acceptance of this price.
 Well, seriously folks, that's why it's open source: so you can change it yourself.
 Please clone the GitHub repo and send a pull request when it's fully working
-on your new DB or server.
+on your new DB or server (and still usable on pgsql and WF).
 
 == Prerequisites:
 
-You must have the following:
+To run the standard version, you *must* have the following:
 
 . Java 7 or 8;
 . http://wildfly.org/[WildFly 8.2] or later Java app server, up and running;
