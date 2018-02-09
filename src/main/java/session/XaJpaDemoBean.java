@@ -32,11 +32,11 @@ public class XaJpaDemoBean {
 		System.out.println("XaJpaDemoBean.saveCustomerOrder()");
 		try {
 			Customer c = findCustomer(customerId);
-			// Update the customer entity in the database.
+			// Update the customer entity in the Customers database.
 			c.setNumberOfOrders(c.getNumberOfOrders() + 1);
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Updated Customer with Id " + c.getId());
 
-			// Insert the order entity in the database.
+			// Insert the order entity in the Orders database as part of the same transaction.
 			orderEntityManager.persist(o);
 
 			System.out.println("XaJpaDemoBean.saveCustomerOrder(): Created order with Id " + o.getId());
